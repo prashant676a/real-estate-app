@@ -2,6 +2,7 @@ class ListingsController < ApplicationController
   def index
     @page = (params[:page] || 1).to_i
     @per_page = 5
+    @is_admin = params[:is_admin] == "true"
 
     @properties = Property.all
   
@@ -42,5 +43,6 @@ class ListingsController < ApplicationController
 
   def show
     @property = Property.find(params[:id])
+    @is_admin = params[:is_admin] == "true"
   end
 end

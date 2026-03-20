@@ -1,3 +1,10 @@
+<div style="text-align: right; margin-bottom: 10px;">
+  <% if params[:is_admin] == "true" %>
+    <%= link_to "Switch to User View", listing_path(@property, request.query_parameters.except(:is_admin)), class: "btn btn-sm btn-secondary" %>
+  <% else %>
+    <%= link_to "Switch to Admin View", listing_path(@property, request.query_parameters.merge(is_admin: true)), class: "btn btn-sm btn-primary" %>
+  <% end %>
+</div>
 <h1><%= @property.title %></h1>
 
 <p>Price: <%= @property.price %></p>
@@ -7,4 +14,7 @@
 <p>Location: <%= @property.suburb %></p>
 <p>Description: <%= @property.description %></p>
 
+<% if @is_admin %>
+  <p><strong>Internal Notes:</strong> <%= @property.internal_notes %></p>
+<% end %>
 <%= link_to "Back to listings", root_path %>

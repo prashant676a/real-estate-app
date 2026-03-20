@@ -22,6 +22,14 @@
   <button type="submit">Search</button>
 </form>
 
+<div style="margin-bottom: 15px;">
+  <% if params[:is_admin] == "true" %>
+    <%= link_to "Switch to User View", listings_path(request.query_parameters.except(:is_admin)), class: "btn btn-sm btn-secondary" %>
+  <% else %>
+    <%= link_to "Switch to Admin View", listings_path(request.query_parameters.merge(is_admin: true)), class: "btn btn-sm btn-primary" %>
+  <% end %>
+</div>
+
 <% @properties.each do |property| %>
   <div style="margin-bottom: 20px;">
     <h3>
@@ -31,6 +39,9 @@
     <p>Beds: <%= property.beds %>, Baths: <%= property.baths %></p>
     <p>Type: <%= property.property_type %></p>
     <p>Location: <%= property.suburb %></p>
+    <% if @is_admin %>
+      <p><strong>Internal Notes:</strong> <%= property.internal_notes %></p>
+    <% end %>
   </div>
 <% end %>
 
