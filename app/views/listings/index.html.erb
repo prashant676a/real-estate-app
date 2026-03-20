@@ -1,2 +1,15 @@
-<h1>Listings#index</h1>
-<p>Find me in app/views/listings/index.html.erb</p>
+<h1>Property Listings</h1>
+
+<% @properties.each do |property| %>
+  <div style="margin-bottom: 20px;">
+    <h3>
+      <a href="/listings/<%= property.id %>">
+        <%= property.title %>
+      </a>
+    </h3>
+    <p>Price: <%= property.price %></p>
+    <p>Beds: <%= property.beds %>, Baths: <%= property.baths %></p>
+    <p>Type: <%= property.property_type %></p>
+    <p>Location: <%= property.suburb %></p>
+  </div>
+<% end %>
