@@ -10,11 +10,12 @@
 
   <input type="number" name="beds" placeholder="Beds" value= "<%= params[:beds] %>">
 
-  <select name="property_type">
-    <option value="">Any Type</option>
-    <option value="apartment" <%= "selected" if params[:property_type] == "apartment" %>>Apartment</option>
-    <option value="house" <%= "selected" if params[:property_type] == "house" %>>House</option>
-  </select>
+  <%= select_tag :property_type,
+      options_for_select(
+        [["Any Type", ""], ["Apartment", "apartment"], ["House", "house"]],
+        params[:property_type]
+      )
+    %>
 
   <input type="text" name="suburb" placeholder="Suburb" value= "<%= params[:suburb] %>">
 
@@ -24,9 +25,7 @@
 <% @properties.each do |property| %>
   <div style="margin-bottom: 20px;">
     <h3>
-      <a href="/listings/<%= property.id %>">
-        <%= property.title %>
-      </a>
+        <%= link_to property.title, listing_path(property) %>
     </h3>
     <p>Price: <%= property.price %></p>
     <p>Beds: <%= property.beds %>, Baths: <%= property.baths %></p>
