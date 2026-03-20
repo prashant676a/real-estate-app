@@ -33,3 +33,13 @@
     <p>Location: <%= property.suburb %></p>
   </div>
 <% end %>
+
+<div style="margin-top: 20px;">
+  <% if @page > 1 %>
+    <%= link_to "Previous", listings_path(request.query_parameters.merge(page: @page - 1)) %>
+  <% end %>
+
+  <% if (@page * @per_page) < @total %>
+    <%= link_to "Next", listings_path(request.query_parameters.merge(page: @page + 1)) %>
+  <% end %>
+</div>

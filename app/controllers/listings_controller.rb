@@ -1,5 +1,8 @@
 class ListingsController < ApplicationController
   def index
+    @page = (params[:page] || 1).to_i
+    @per_page = 5
+
     @properties = Property.all
   
     if params[:price_min].present?
@@ -29,6 +32,12 @@ class ListingsController < ApplicationController
         "%#{params[:keyword]}%"
       )
     end
+
+    @total = @properties.count
+
+    @properties = @properties
+                  .limit(@per_page)
+                  .offset((@page - 1) * @per_page)
   end
 
   def show
