@@ -15,5 +15,9 @@ class CreateProperties < ActiveRecord::Migration[8.1]
 
       t.timestamps
     end
+
+    add_index :properties, :price
+    add_index :properties, :suburb
+    add_index :properties, :property_type
   end
 end

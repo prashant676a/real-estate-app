@@ -10,8 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 0) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_20_074304) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
+  create_table "agents", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email"
+    t.string "name"
+    t.string "phone"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "properties", force: :cascade do |t|
+    t.string "address"
+    t.bigint "agent_id", null: false
+    t.integer "baths"
+    t.integer "beds"
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.text "internal_notes"
+    t.boolean "is_active"
+    t.integer "price"
+    t.string "property_type"
+    t.string "suburb"
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.index ["agent_id"], name: "index_properties_on_agent_id"
+    t.index ["price"], name: "index_properties_on_price"
+    t.index ["property_type"], name: "index_properties_on_property_type"
+    t.index ["suburb"], name: "index_properties_on_suburb"
+  end
+
+  add_foreign_key "properties", "agents"
 end
