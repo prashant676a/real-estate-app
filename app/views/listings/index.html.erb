@@ -1,5 +1,26 @@
 <h1>Property Listings</h1>
 
+<h2>Search Properties</h2>
+
+<form method="get" action="/listings">
+  <input type="text" name="keyword" placeholder="Keyword" value= "<%= params[:keyword] %>" >
+
+  <input type="number" name="price_min" placeholder="Min Price" value= "<%= params[:price_min] %>">
+  <input type="number" name="price_max" placeholder="Max Price" value= "<%= params[:price_max] %>">
+
+  <input type="number" name="beds" placeholder="Beds" value= "<%= params[:beds] %>">
+
+  <select name="property_type">
+    <option value="">Any Type</option>
+    <option value="apartment" <%= "selected" if params[:property_type] == "apartment" %>>Apartment</option>
+    <option value="house" <%= "selected" if params[:property_type] == "house" %>>House</option>
+  </select>
+
+  <input type="text" name="suburb" placeholder="Suburb" value= "<%= params[:suburb] %>">
+
+  <button type="submit">Search</button>
+</form>
+
 <% @properties.each do |property| %>
   <div style="margin-bottom: 20px;">
     <h3>
