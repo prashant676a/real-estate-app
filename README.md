@@ -1,24 +1,62 @@
-# README
+# Real Estate Listing App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Overview
+A simple Rails application to search and view real estate listings with role-aware behavior.
 
-Things you may want to cover:
+## Features
+- Property search with filters: price, beds, baths, type, suburb, keyword
+- Pagination
+- Property detail page
+- Admin view with extra metadata (`internal_notes`)
 
-* Ruby version
+## Setup
 
-* System dependencies
+1. Install dependencies
+```bash
+bundle install
+```
 
-* Configuration
+2. Setup database
+```bash
+rails db:create
+rails db:migrate
+rails db:seed
+```
 
-* Database creation
+3. Run the server
+```bash
+rails server
+```
 
-* Database initialization
+Visit: http://localhost:3000/listings
 
-* How to run the test suite
+---
 
-* Services (job queues, cache servers, search engines, etc.)
+## Usage
+- Toggle Admin/User view via the button at top of index or show page
+- Example URLs:
+```
+/listings?price_min=500000
+/listings?beds=2&property_type=apartment
+/listings?is_admin=true
+```
 
-* Deployment instructions
+---
 
-* ...
+## Testing
+Run:
+```bash
+rails test
+```
+
+Covers:
+- Property model validation
+- ListingsController index
+- Admin view conditional rendering
+
+---
+
+## Notes
+- No external CSS frameworks used (minimal styling only)
+- All database operations use ActiveRecord
+- Focused on requirements (role-based behavior, filters, pagination, CRUD)
