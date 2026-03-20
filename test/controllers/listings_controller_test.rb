@@ -2,7 +2,8 @@ require "test_helper"
 
 class ListingsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @property = Property.create!(title: "Sample House", price: 400000, beds: 2, baths: 1, property_type: "house", suburb: "Northside")
+    agent = Agent.create!(name: "Test Agent", email: "test@example.com")
+    @property = Property.create!(title: "Sample House", price: 400000, beds: 2, baths: 1, property_type: "house", suburb: "Northside", agent: agent)
   end
 
   test "should get index" do
