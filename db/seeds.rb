@@ -32,7 +32,7 @@ properties_data = [
 properties_data.each_with_index do |data, index|
   # Assign an agent round-robin style
   agent = agents[index % agents.length]
-  
+
   Property.create!(
     **data,
     agent: agent,
