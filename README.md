@@ -1,16 +1,18 @@
-# Real Estate Listing App
+# Real Estate Listing App (API + Next.js Frontend)
 
 ## Overview
-A simple Rails application to search and view real estate listings with role-aware behavior.
+A scalable real estate listing platform demonstrating a decoupled architecture with a Rails API backend and a Next.js frontend, built for a mid-level full-stack engineer assessment.
 
-## Features
-- Property search with filters: price, beds, baths, type, suburb, keyword
-- Pagination
-- Property detail page
-- Admin view with extra metadata (`internal_notes`)
+## Key Features & Improvements
+- **Decoupled Architecture**: Separated the backend into a robust API and the frontend into a standalone Next.js React application.
+- **Advanced Search Indexing**: Implemented `pg_trgm` (trigram) GIN indexing in PostgreSQL to optimize wildcard `ILIKE` keyword searches, dropping query times significantly.
+- **Extracted Business Logic**: Search and filtering logic has been extracted from the controller into the `Property.search` model scope.
+- **Secure Role Flag**: Replaced the arbitrary `?is_admin=true` URL parameter with a secure mock `Authorization: Bearer admin-token` HTTP Header.
+- **API Serialized Responses**: Responses properly formatted mapping cleanly to the frontend interfaces, with pagination metadata.
 
-## Setup
+## Setup Instructions
 
+### 1. Rails Backend API (Port 3000)
 1. Install dependencies
 ```bash
 bundle install
@@ -23,40 +25,54 @@ rails db:migrate
 rails db:seed
 ```
 
-3. Run the server
+3. Run the Rails server
 ```bash
 rails server
 ```
+The API is now running at `http://localhost:3000/listings`.
 
-Visit: http://localhost:3000/listings
+### 2. Next.js Frontend App (Port 3001)
+Open a new terminal window:
+1. Navigate to the frontend directory
+```bash
+cd frontend
+```
+
+2. Install dependencies
+```bash
+npm install
+```
+
+3. Start the Next.js development server
+```bash
+npm run dev -- -p 3001
+```
+
+Visit: http://localhost:3001 to view the application!
 
 ---
 
-## Usage
-- Toggle Admin/User view via the button at top of index or show page
-- Example URLs:
+## API Examples
+
+**Search listings:**
+```bash
+curl "http://localhost:3000/listings?property_type=apartment&keyword=Views"
 ```
-/listings?price_min=500000
-/listings?beds=2&property_type=apartment
-/listings?is_admin=true
+
+**Get a listing as an admin (sees internal notes):**
+```bash
+curl "http://localhost:3000/listings/1" -H "Authorization: Bearer admin-token"
 ```
 
 ---
 
 ## Testing
-Run:
+Run backend tests:
 ```bash
 rails test
 ```
 
 Covers:
-- Property model validation
-- ListingsController index
-- Admin view conditional rendering
-
----
-
-## Notes
-- No external CSS frameworks used (minimal styling only)
-- All database operations use ActiveRecord
-- Focused on requirements (role-based behavior, filters, pagination, CRUD)
+- Property model validations
+- ListingsController index and show endpoints
+- Mock Admin Authorization behavior

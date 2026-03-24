@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_20_074304) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_20_133206) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "pg_trgm"
 
   create_table "agents", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -37,9 +38,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_20_074304) do
     t.string "title"
     t.datetime "updated_at", null: false
     t.index ["agent_id"], name: "index_properties_on_agent_id"
+    t.index ["description"], name: "index_properties_on_description", opclass: :gin_trgm_ops, using: :gin
     t.index ["price"], name: "index_properties_on_price"
     t.index ["property_type"], name: "index_properties_on_property_type"
     t.index ["suburb"], name: "index_properties_on_suburb"
+    t.index ["title"], name: "index_properties_on_title", opclass: :gin_trgm_ops, using: :gin
   end
 
   add_foreign_key "properties", "agents"
