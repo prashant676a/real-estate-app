@@ -1,5 +1,8 @@
 # Real Estate Listing App (API + Next.js Frontend)
 
+![Home Page](docs/images/home.png)
+![Property Detail Page](docs/images/detail.png)
+
 ## Overview
 A scalable real estate listing platform demonstrating a decoupled architecture with a Rails API backend and a Next.js frontend, built for a mid-level full-stack engineer assessment.
 
